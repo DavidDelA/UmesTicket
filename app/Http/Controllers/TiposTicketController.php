@@ -46,9 +46,7 @@ class TiposTicketController extends Controller
         {
             TiposTicket::create(['nombre'=>$nuevoTicket]);
         }
-        $tickets = TiposTicket::orderby('id','asc')->paginate(10);
-        
-        return view('TiposTicket.index', compact('tickets'));
+        return redirect('tiposTicket');
     }
 
     /**
@@ -60,7 +58,7 @@ class TiposTicketController extends Controller
     public function show($id)
     {
         //
-        return("hola");
+        
     }
 
     /**
@@ -90,8 +88,8 @@ class TiposTicketController extends Controller
         $ticket->nombre = $request->input('nombre');
         $ticket->save();
 
-        $tickets = TiposTicket::orderby('id','asc')->paginate(10);
-        return view('TiposTicket.index', compact('tickets'));
+        
+        return redirect('tiposTicket');
     }
 
     /**
