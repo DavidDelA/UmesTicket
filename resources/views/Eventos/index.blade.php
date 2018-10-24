@@ -2,6 +2,7 @@
 <html>
 <head>
 <style>
+
 table {
     border-collapse: collapse;
     width: 100%;
@@ -21,7 +22,9 @@ tr:nth-child(even) {
 <body>
 
 
- 
+ @extends('layouts.app')
+
+@section('content')
 <table id = "mytable" class ="table table-border table-striped" >
 <thead>
     <DIV ALIGN="center"><P><h1> LISTA DE EVENTOS</h1></DIV> 
@@ -62,5 +65,5 @@ tr:nth-child(even) {
 <form method="get" action="{{action('EventosController@create')}}">
     <button type="submit">Crear Evento</button>
 </form>
-
+@endsection
 

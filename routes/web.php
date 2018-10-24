@@ -23,3 +23,4 @@ Route::group(['middleware'=>'App\Http\Middleware\AdminMiddleware'], function(){
     
 });
 Route :: resource ('Eventos','EventosController');
+Route :: get ('Eventos/{Eventos}/ticket','EventosController@ticket');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Eventos;
+use App\TiposTicket;
 use Illuminate\Http\Request;
 
 class EventosController extends Controller
@@ -14,6 +15,8 @@ class EventosController extends Controller
     public function index()
     {
         //
+       
+     
         $eventos = Eventos :: orderBy ('id','DESC') ->paginate(3); //solo estoy ordenando el ingreso de los libros
         return view ('Eventos.index',compact ('eventos'));
 
@@ -26,7 +29,9 @@ class EventosController extends Controller
      */
     public function create()
     {
-        return view ('Eventos.create');
+        $tiposTicket = TiposTicket:: all();
+        return view ('Eventos.create' ,compact ('tiposTicket'));
+
     }
 
     /**
@@ -103,5 +108,10 @@ class EventosController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function ticket ($id)
+    {
+        $tickets = TiposTicket::orderby('id')->get();
+        return view('Eventos.ticket', compact('tickets'));
     }
 }
