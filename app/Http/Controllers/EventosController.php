@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Eventos;
+use App\Tickets;
 use Illuminate\Http\Request;
+
 
 class EventosController extends Controller
 {
@@ -42,6 +44,17 @@ class EventosController extends Controller
         Eventos:: create($request->all());
         $eventos = Eventos :: orderBy ('id','DESC') ->paginate(3); //solo estoy ordenando el ingreso de los libros
         return view ('Eventos.index',compact ('eventos'));
+    }
+
+    /**
+    * Creación de los tickets para el evento
+    *
+    * @param 
+    * @return 
+    */
+    public function crearTickets($request){
+
+
     }
 
     /**
