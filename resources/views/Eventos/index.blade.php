@@ -18,6 +18,9 @@ tr:nth-child(even) {
 }
 </style>
 </head>
+@extends('layouts.app')
+
+@section('content')
 <body>
 
 
@@ -28,7 +31,7 @@ tr:nth-child(even) {
     </thead>
     <tbody>
     <tr>
-        <th>Nombre de Evento</th><th>Fecha</th><th>Publico</th><th>Tickets</th>
+        <th>ID</th><th>Nombre de Evento</th><th>Fecha</th><th>Publico</th><th>Tickets</th>
         <th>Horario de Inicio</th><th>Horario de Finalizacion</th><th>Lugar </th>
         <th> </th>
         </tr>
@@ -64,3 +67,4 @@ tr:nth-child(even) {
 </form>
 
 
+@endsection

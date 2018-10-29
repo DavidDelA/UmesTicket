@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Eventos;
+use App\TiposTicket;
+use App\Tickets;
 use Illuminate\Http\Request;
+
 
 class EventosController extends Controller
 {
@@ -26,7 +29,8 @@ class EventosController extends Controller
      */
     public function create()
     {
-        return view ('Eventos.create');
+        $tiposTicket = TiposTicket::all();
+        return view ('Eventos.create', compact('tiposTicket'));
     }
 
     /**
@@ -38,10 +42,33 @@ class EventosController extends Controller
     public function store(Request $request)
     {
         //
-        
-        Eventos:: create($request->all());
-        $eventos = Eventos :: orderBy ('id','DESC') ->paginate(3); //solo estoy ordenando el ingreso de los libros
-        return view ('Eventos.index',compact ('eventos'));
+        $eventoNuevo = Eventos:: create($request->all());
+        self::crearTickets($request,$eventoNuevo);
+        return redirect('Eventos');
+    }
+
+    /**
+    * Creación de los tickets para el evento
+    *
+    * @param 
+    * @return 
+    */
+    public function crearTickets($request, Eventos $evento){
+        $totalTickets = 0;
+        foreach(TiposTicket::all() as $tipo){
+            for($i = 0; $i < $request->input($tipo->nombre); $i++)
+            {
+                $ticket = new Tickets;
+                $ticket->tipo = $tipo->id;
+                $ticket->evento = $evento->id;
+                $ticket->save();
+                $totalTickets++;
+            }
+        }
+        $evento->tickets = $totalTickets;
+        $evento->save();
+
+    
     }
 
     /**
