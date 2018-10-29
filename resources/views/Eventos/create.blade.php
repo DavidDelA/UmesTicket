@@ -1,10 +1,11 @@
+@extends('layouts.app')
 
-
+@section('content')
 <form method= "post" action="{{route('Eventos.store')}}">
 {{ csrf_field() }}
-	<label><DIV ALIGN="center"><P><h1> EVENTO</h1></DIV> </label><br>
+	 <h1>Evento</h1>
     <table>
-    <tr>
+     <tr>
 	 <td><label>Nombre de el Evento:</label></td><td><input type="text" id="evento" name="evento" ><br></td>
 	 </tr>
      <tr>
@@ -25,12 +26,16 @@
      <tr>
      <td><label>Lugar:</label></td><td><input type="text" id="lugar" name="lugar" ><br></td>
      </tr>
-        </table>
+    </table>
 
+     <table >
+     <tr><h1>Tickets para el Evento</h1>
+         @foreach ($tiposTicket as $tipo)
+         <td> {{$tipo->nombre}}</td>
+        <td> <input type="number" name = "{{$tipo->nombre}}" value ="0" ></td>
+        </tr>
+        @endforeach    
+    </table>
 	 <input type ="submit" value="Guardar">
 </form> 
-
-
-
-	 
-
+@endsection

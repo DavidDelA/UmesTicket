@@ -1,5 +1,6 @@
+@extends('layouts.app')
 
-
+@section('content')
 <form method= "post" action="{{action('EventosController@update',$id)}}">
 {{ csrf_field() }}
     <input type="hidden" name="_method" value="PATCH"/>
@@ -30,5 +31,4 @@
 
 	 <input type ="submit" value="Actualizar">
 </form> 
-
-
+@endsection

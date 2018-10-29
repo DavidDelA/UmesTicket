@@ -16,7 +16,7 @@ class CreateTicketsTable extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('evento');
-            $table->integer('comprador');
+            $table->integer('comprador')->default('0');
             $table->integer('tipo');
             $table->timestamps();
         });
