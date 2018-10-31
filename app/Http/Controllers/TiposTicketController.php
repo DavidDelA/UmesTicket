@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\TiposTicket;
 use Illuminate\Http\Request;
-use App\User;
-class AdmiController extends Controller
+
+class TiposTicketController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,8 @@ class AdmiController extends Controller
     public function index()
     {
         //
-        $adms = User::orderBy('id','DESC')->get();
-        return view('admi.index',compact('adms'));
+        $tickets = TiposTicket::orderby('id','asc')->paginate(10);
+        return view('TiposTicket.index', compact('tickets'));
     }
 
     /**
@@ -26,7 +27,8 @@ class AdmiController extends Controller
     public function create()
     {
         //
-        return view('admi.create');
+       
+        return view('TiposTicket.crear');
     }
 
     /**
@@ -35,14 +37,16 @@ class AdmiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $data)
+    public function store(Request $request)
     {
         //
-        $nuevoAdmin = User::create($data->all());
-        //$nuevoAdmin -> type=('admin');
-        $nuevoAdmin -> save();
-
-        return redirect ('admi');
+        $nuevoTicket = $request->input('nombre');
+       
+        if($nuevoTicket!="")
+        {
+            TiposTicket::create(['nombre'=>$nuevoTicket]);
+        }
+        return redirect('tiposTicket');
     }
 
     /**
@@ -54,6 +58,7 @@ class AdmiController extends Controller
     public function show($id)
     {
         //
+        
     }
 
     /**
@@ -65,8 +70,8 @@ class AdmiController extends Controller
     public function edit($id)
     {
         //
-        $adms = User::Find($id);
-        return view('admi.edit',compact('adms','id'));
+        $ticket = TiposTicket::find($id);
+        return view('TiposTicket.edit',compact('ticket', 'id'));
     }
 
     /**
@@ -79,18 +84,12 @@ class AdmiController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $adms = User :: find ($id);
-        $adms->name = $request->get('name');
-        $adms->email =$request->get('email');
-        $adms->password = $request->get('password');
+        $ticket = Tiposticket::find($id);
+        $ticket->nombre = $request->input('nombre');
+        $ticket->save();
+
         
-        
-        $adms->save();
-        
-        $adms = User::orderBy('id','DESC')->get();
-        
-        return redirect('admi');
-      
+        return redirect('tiposTicket');
     }
 
     /**
@@ -102,5 +101,6 @@ class AdmiController extends Controller
     public function destroy($id)
     {
         //
+        
     }
 }

@@ -15,3 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route :: resource('admi','AdmiController');
+
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware'=>'App\Http\Middleware\AdminMiddleware'], function(){
+    Route::resource('tiposTicket','TiposTicketController',['except' => 'show,index']);
+    
+});
+Route :: resource ('Eventos','EventosController');

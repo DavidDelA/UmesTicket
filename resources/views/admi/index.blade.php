@@ -1,35 +1,30 @@
-<center>
-<H2>USUARIOS</H2>
-<hr>
+@extends('layouts.app')
+@section('content')
+<center><h1>Administradores</h1>
 <table id="mytable" class="table table.borderd table-striped">
 
-<tbody>
 
-    @foreach($adms as $Admi)
-   
-    
-   <tr> 
+    @foreach($adms as $User)
+ 
+    <tr>
+        <td><p><B>Nombres:</B> {{$User->name}} </td>
         
-       <td><B>Nombres:</B> {{$Admi->name}}</td>
+        <td><p><B>Correo: </B>{{$User->email}} </td>
 
-       <td><B>Apellidos:</B> {{$Admi->surname}}</td>
         
-        <td><B>Correo: </B>{{$Admi->email}}</td>
+        <td><input type="submit" onClick="location='admi/{{$User->id}}/edit'" value="Editar Administrador"/> </td>
         
-        <td><B>Usuario: </B>{{$Admi->user}}</td>
-        
-        <td><B>Telefono: </B>{{$Admi->phone}}</td>
-        
-        <td><input type="submit" onClick="location='admi/{{$Admi->id}}/edit'" value="Editar Usuario"/> </td>
-        
-        </tr>
 
 @endforeach
-        </tbody>
+
+        
+        
         </table>
-        <hr>
-        <input type="submit" onClick="location='admi/create'" value="Crear Usuario"/>
+        
+    
+       <center> <input type="submit" onClick="location='admi/create'" value="Crear Administrador"/>
         
 
 <div>
 </div>
+@endsection

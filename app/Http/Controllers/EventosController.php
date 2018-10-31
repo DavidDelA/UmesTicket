@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Eventos;
 use Illuminate\Http\Request;
-use App\User;
-class AdmiController extends Controller
+
+class EventosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,9 @@ class AdmiController extends Controller
     public function index()
     {
         //
-        $adms = User::orderBy('id','DESC')->get();
-        return view('admi.index',compact('adms'));
+        $eventos = Eventos :: orderBy ('id','DESC') ->paginate(3); //solo estoy ordenando el ingreso de los libros
+        return view ('Eventos.index',compact ('eventos'));
+
     }
 
     /**
@@ -25,8 +26,7 @@ class AdmiController extends Controller
      */
     public function create()
     {
-        //
-        return view('admi.create');
+        return view ('Eventos.create');
     }
 
     /**
@@ -35,14 +35,13 @@ class AdmiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $data)
+    public function store(Request $request)
     {
         //
-        $nuevoAdmin = User::create($data->all());
-        //$nuevoAdmin -> type=('admin');
-        $nuevoAdmin -> save();
-
-        return redirect ('admi');
+        
+        Eventos:: create($request->all());
+        $eventos = Eventos :: orderBy ('id','DESC') ->paginate(3); //solo estoy ordenando el ingreso de los libros
+        return view ('Eventos.index',compact ('eventos'));
     }
 
     /**
@@ -64,9 +63,10 @@ class AdmiController extends Controller
      */
     public function edit($id)
     {
-        //
-        $adms = User::Find($id);
-        return view('admi.edit',compact('adms','id'));
+        
+        $eventos = Eventos :: find ($id);
+        return view ('Eventos.edit',compact ('eventos', 'id'));
+
     }
 
     /**
@@ -79,18 +79,19 @@ class AdmiController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $adms = User :: find ($id);
-        $adms->name = $request->get('name');
-        $adms->email =$request->get('email');
-        $adms->password = $request->get('password');
+        $eventos = Eventos :: find ($id);
+        $eventos->evento = $request->get('evento');
+        $eventos->fecha =$request->get('fecha');
+        $eventos->publico = $request->get('publico');
+        $eventos->tickets =$request->get('tickets');
+        $eventos->horarioinicio =$request->get('horarioinicio');
+        $eventos->horariofinal =$request->get('horariofinal');
+        $eventos->lugar =$request->get('lugar');
+        $eventos->save();
         
-        
-        $adms->save();
-        
-        $adms = User::orderBy('id','DESC')->get();
-        
-        return redirect('admi');
-      
+        $eventos = Eventos :: orderBy ('id','DESC') ->paginate(3); //solo estoy ordenando el ingreso de los libros
+        return view ('Eventos.index',compact ('eventos'));
+
     }
 
     /**
