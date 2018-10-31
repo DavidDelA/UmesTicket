@@ -108,9 +108,8 @@ class EventosController extends Controller
         //
         $eventos = Eventos :: find ($id);
         $eventos->evento = $request->get('evento');
-        $eventos->fecha =$request->get('fecha');
-        $eventos->publico = $request->get('publico');
-        $eventos->tickets =$request->get('tickets');
+        $eventos->fecha = $request->get('fecha');
+      
         $eventos->horarioinicio =$request->get('horarioinicio');
         $eventos->horariofinal =$request->get('horariofinal');
         $eventos->lugar =$request->get('lugar');
