@@ -16,11 +16,10 @@ class CreateEventosTable extends Migration
         Schema::create('eventos', function (Blueprint $table) {
             $table->increments('id');
             $table->String('evento');
-            $table->String('fecha');
-            $table->integer('publico');
-            $table->String('tickets');
-            $table->String('horarioinicio');
-            $table->String('horariofinal');
+            $table->date('fecha');
+            $table->integer('tickets')->default('0');
+            $table->time('horarioinicio');
+            $table->time('horariofinal');
             $table->String('lugar');
 
             $table->timestamps();

@@ -31,7 +31,7 @@ tr:nth-child(even) {
     </thead>
     <tbody>
     <tr>
-        <th>ID</th><th>Nombre de Evento</th><th>Fecha</th><th>Publico</th><th>Tickets</th>
+        <th>ID</th><th>Nombre de Evento</th><th>Fecha</th><th>Tickets</th>
         <th>Horario de Inicio</th><th>Horario de Finalizacion</th><th>Lugar </th>
         <th> </th>
         </tr>
@@ -41,8 +41,7 @@ tr:nth-child(even) {
         <tr>
         <td>{{$eventocap->id}}</td>
         <td>{{$eventocap->evento}}</td> 
-        <td>{{$eventocap->fecha}}</td>
-        <td>{{$eventocap->publico}}</td>
+        <td>{{$eventocap->fecha}}</td> 
         <td>{{$eventocap->tickets}}</td>
         <td>{{$eventocap->horarioinicio}}</td>
         <td>{{$eventocap->horariofinal}}</td>
