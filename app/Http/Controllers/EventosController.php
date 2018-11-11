@@ -44,16 +44,16 @@ class EventosController extends Controller
         //
         $eventoNuevo = Eventos:: create($request->all());
         self::crearTickets($request,$eventoNuevo);
-        return redirect('Eventos');
+        return redirect('AdmiEventos');
     }
 
     /**
     * Creación de los tickets para el evento
     *
-    * @param 
-    * @return 
+    * @param Request,Evento
+    * @return Void 
     */
-    public function crearTickets($request, Eventos $evento){
+    private function crearTickets($request, Eventos $evento){
         $totalTickets = 0;
         foreach(TiposTicket::all() as $tipo){
             for($i = 0; $i < $request->input($tipo->nombre); $i++)
@@ -115,9 +115,7 @@ class EventosController extends Controller
         $eventos->lugar =$request->get('lugar');
         $eventos->save();
         
-        $eventos = Eventos :: orderBy ('id','DESC') ->paginate(3); //solo estoy ordenando el ingreso de los libros
-        return view ('Eventos.index',compact ('eventos'));
-
+       return redirect('AdmiEventos');
     }
 
     /**
@@ -129,5 +127,22 @@ class EventosController extends Controller
     public function destroy($id)
     {
         //
+        self::DevolverDinero($id);
+        self::EliminarTickets($id);
+
+        return redirect('AdmiEventos');
+    }
+
+    private function DevolverDinero(){
+
+
+    }
+
+    private function EliminarTickets($id){
+        $ticketsEvento = Tickets::where(
+            'evento',$id
+        );
+        $ticketsEvento->delete();
+
     }
 }

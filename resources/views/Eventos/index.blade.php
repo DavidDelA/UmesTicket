@@ -46,8 +46,12 @@ tr:nth-child(even) {
         <td>{{$eventocap->horarioinicio}}</td>
         <td>{{$eventocap->horariofinal}}</td>
         <td>{{$eventocap->lugar}}</td>
-        <td><form method="get" action="{{route('Eventos.edit', $eventocap->id)}}">
+        <td><form method="get" action="{{route('AdmiEventos.edit', $eventocap->id)}}">
             <button type="submit">Editar Evento</button>
+            </form>
+            <form method="get" action="{{route('AdmiEventos.destroy', $eventocap->id)}}">
+            <input type="Hidden" name="_method" value = "delete">
+            <button type="submit">Eliminar Evento</button>
             </form>
         </td>
 
