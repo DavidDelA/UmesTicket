@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form method= "post" action="{{route('Eventos.store')}}">
+<form method= "post" action="{{route('AdmiEventos.store')}}">
 {{ csrf_field() }}
 	 <h1>Evento</h1>
     <table>
@@ -24,7 +24,7 @@
      </tr>
     </table>
 
-     <table >
+     <table>
      <tr><h1>Tickets para el Evento</h1>
          @foreach ($tiposTicket as $tipo)
          <td> {{$tipo->nombre}}</td>

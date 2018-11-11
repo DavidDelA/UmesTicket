@@ -44,7 +44,7 @@ class EventosController extends Controller
         //
         $eventoNuevo = Eventos:: create($request->all());
         self::crearTickets($request,$eventoNuevo);
-        return redirect('Eventos');
+        return redirect('AdmiEventos');
     }
 
     /**
@@ -115,7 +115,7 @@ class EventosController extends Controller
         $eventos->lugar =$request->get('lugar');
         $eventos->save();
         
-       return redirect('Eventos');
+       return redirect('AdmiEventos');
     }
 
     /**
@@ -129,6 +129,8 @@ class EventosController extends Controller
         //
         self::DevolverDinero($id);
         self::EliminarTickets($id);
+
+        return redirect('AdmiEventos');
     }
 
     private function DevolverDinero(){

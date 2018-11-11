@@ -2,7 +2,7 @@
 
 @section('content')
 <h1>Eventos Próximos</h1>
-<table>
+<table class ="table table-border table-striped" >
     <tr>
     <th>Nombre</th>
     <th>Fecha</th>
@@ -10,11 +10,17 @@
     <th>Tickets Disponibles</th>
     <th></th>
     </tr>
-    @foreach()
+    @foreach($eventos as $evento)
     <tr>
-    <th>{{ $evento->evento }}</th>
-    <th>{{ $evento-> fecha }} </th>
-    <th><a href="{{ URL::to('CompraTicketsController/'. $evento->id. '/detalle') }}">Comprar Tickets</a></th>
+    <td>{{ $evento->evento }}</td>
+    <td>{{ $evento->fecha }}</td>
+    <td>{{ $evento->horarioinicio}}-{{ $evento->horariofinal }} </td>
+    @if($evento->tickets > 0)
+    <td><label>{{ $evento->tickets }}</label></td>
+    @else
+    <td><label color:red>Agotados</label></td>
+    @endif
+    <td><a href="{{ URL::to('Eventos/'. $evento->id. '/Detalle') }}">Comprar Tickets</a></td>
     </tr>
     @endforeach
 

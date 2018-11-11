@@ -14,13 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route :: resource('admi','AdmiController');
 
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('/Eventos','CompraTicketsController@index');
+Route::get('/Eventos/{id}/Detalle','CompraTicketsController@Detalle');
 //Paginas solo para Administradores
 Route::group(['middleware'=>'App\Http\Middleware\AdminMiddleware'], function(){
     Route::resource('tiposTicket','TiposTicketController',['except' => 'show,index']);
-    Route :: resource ('Eventos','EventosController');
+    Route :: resource ('AdmiEventos','EventosController');
+    Route :: resource('admi','AdmiController');
 });
+Route::get('/home', 'HomeController@index')->name('home');
