@@ -28,7 +28,7 @@
      <tr><h1>Tickets para el Evento</h1>
          @foreach ($tiposTicket as $tipo)
          <td> {{$tipo->nombre}}</td>
-        <td> <input type="number" name = "{{$tipo->nombre}}" value ="0" ></td>
+        <td> <input type="number"  min="0" name = "{{$tipo->nombre}}" value ="0" ></td>
         </tr>
         @endforeach    
     </table>

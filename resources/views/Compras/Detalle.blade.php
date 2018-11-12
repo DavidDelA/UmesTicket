@@ -22,8 +22,8 @@
      <table>
      <tr><h1>Tickets Disponibles</h1>
          @for($i =0; $i< count($ticketsEvento); $i= $i+2)
-         <td> {{$ticketsEvento[$i]->nombre}}</td>
-        <td> <input type="number" name = "{{$ticketsEvento[$i]->id}}" value ="0" ></td>
+         <th> {{$ticketsEvento[$i]->nombre}}</th>
+        <th> <input type="number" name = "{{$ticketsEvento[$i]->id}}" min="0" max="{{ $ticketsEvento[$i+1] }}" value ="0" ></th>
         </tr>
         @endfor   
     </table>

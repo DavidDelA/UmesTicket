@@ -16,6 +16,7 @@ class CreateTiposTicketsTable extends Migration
         Schema::create('tipos_tickets', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
+            $table->decimal('precio');
             $table->timestamps();
         });
     }

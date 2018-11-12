@@ -9,7 +9,7 @@
                 <div class="panel-body">
                 <form method="post" action="{{route ('admi.store')}}"> 
                 {{csrf_field()}}
-
+                            <input type="hidden" name="type" value="admin"/>
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Name</label>
 
