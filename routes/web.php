@@ -27,7 +27,7 @@ Route::group(['middleware'=>'App\Http\Middleware\AdminMiddleware'], function(){
 });
 
 //Paginas solo para ususarios
-//Route::group(['middleware'=>'App\Http\Middleware\UserMiddleware'], function(){
+Route::group(['middleware'=>'App\Http\Middleware\UserMiddleware'], function(){
     //Compras
     Route::get('/Eventos/{id}/Detalle','CompraTicketsController@Detalle');
     Route::post('/Eventos/Comprar','CompraTicketsController@Comprar');
@@ -39,7 +39,7 @@ Route::group(['middleware'=>'App\Http\Middleware\AdminMiddleware'], function(){
     Route::get('/MiCuenta/Saldo','CuentaController@Saldo');
     Route::post('/MiCuenta/Abono','CuentaController@Abono');
     Route::get('/MiCuenta/Abonar','CuentaController@Abonar');
-//});
+});
 //temporal
 Route :: resource('admi','AdmiController');
 
