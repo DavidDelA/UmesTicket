@@ -14,7 +14,7 @@ class AdmiController extends Controller
     public function index()
     {
         //
-        $adms = User::orderBy('id','DESC')->get();
+        $adms = User::where('type',"admin")->get();
         return view('admi.index',compact('adms'));
     }
 
@@ -39,7 +39,7 @@ class AdmiController extends Controller
     {
         //
         $nuevoAdmin = User::create($data->all());
-        //$nuevoAdmin -> type=('admin');
+        $nuevoAdmin->type=('admin');
         $nuevoAdmin -> save();
 
         return redirect ('admi');

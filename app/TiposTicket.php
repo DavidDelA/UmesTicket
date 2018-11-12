@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class TiposTicket extends Model
 {
     //
-    protected $fillable = ['nombre'];
+    protected $fillable = ['nombre','precio'];
 }

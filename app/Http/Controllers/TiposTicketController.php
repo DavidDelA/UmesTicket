@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\TiposTicket;
+use App\Tickets;
 use Illuminate\Http\Request;
 
 class TiposTicketController extends Controller
@@ -27,7 +28,6 @@ class TiposTicketController extends Controller
     public function create()
     {
         //
-       
         return view('TiposTicket.crear');
     }
 
@@ -44,7 +44,7 @@ class TiposTicketController extends Controller
        
         if($nuevoTicket!="")
         {
-            TiposTicket::create(['nombre'=>$nuevoTicket]);
+            TiposTicket::create($request->all());
         }
         return redirect('tiposTicket');
     }
@@ -58,7 +58,14 @@ class TiposTicketController extends Controller
     public function show($id)
     {
         //
-        
+        if (Tickets::where('tipo',$id)->count() > 0){
+            $mensaje = "No se puede Eliminar el tipo ya que está siendo usado en un evento.";
+            $link = "/tiposTicket";
+            return view('Error',compact('mensaje','link'));
+        }else{
+        TiposTicket::find($id)->delete();
+        return redirect('tiposTicket');
+        }
     }
 
     /**
@@ -86,6 +93,7 @@ class TiposTicketController extends Controller
         //
         $ticket = Tiposticket::find($id);
         $ticket->nombre = $request->input('nombre');
+        $ticket->precio = $request->input('precio');
         $ticket->save();
 
         
@@ -101,6 +109,6 @@ class TiposTicketController extends Controller
     public function destroy($id)
     {
         //
-        
+       
     }
 }

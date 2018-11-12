@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Eventos;
 use App\TiposTicket;
 use App\Tickets;
+use App\User;
 use Illuminate\Http\Request;
 
 
@@ -29,8 +30,14 @@ class EventosController extends Controller
      */
     public function create()
     {
+        if(TiposTicket::all()->count() != 0){
         $tiposTicket = TiposTicket::all();
         return view ('Eventos.create', compact('tiposTicket'));
+        }else{
+        $mensaje = "No hay ningún tipo de ticket creado aún.";
+        $link = "/tiposTicket";
+        return view('Error', compact('$mensaje','link'));
+        }
     }
 
     /**
@@ -80,6 +87,12 @@ class EventosController extends Controller
     public function show($id)
     {
         //
+        self::DevolverDinero($id);
+        self::EliminarTickets($id);
+        $evento = Eventos::find($id);
+        $evento->delete();
+        return redirect('AdmiEventos');
+        
     }
 
     /**
@@ -90,10 +103,27 @@ class EventosController extends Controller
      */
     public function edit($id)
     {
-        
         $eventos = Eventos :: find ($id);
-        return view ('Eventos.edit',compact ('eventos', 'id'));
+        $ticketsEvento = self::tickets($id);
+        return view ('Eventos.edit',compact ('eventos', 'id', 'ticketsEvento'));
 
+    }
+
+    //busca la cantidad de tickets por tipo
+    private function tickets($id){
+        $tiposTicket = TiposTicket::all();
+        $ticketsTotales = array();
+        foreach($tiposTicket as $tipo){
+        $tipoId = $tipo->id;
+        $tickets = Tickets::where('evento',$id)
+            ->where('tipo',$tipoId)
+            ->where('comprador', 0)
+            ->count();
+        if($tickets > 0){
+        array_push($ticketsTotales, $tipo, $tickets );
+        }
+        }
+        return $ticketsTotales;
     }
 
     /**
@@ -124,18 +154,22 @@ class EventosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
         //
-        self::DevolverDinero($id);
-        self::EliminarTickets($id);
-
-        return redirect('AdmiEventos');
+       
     }
 
-    private function DevolverDinero(){
-
-
+    private function DevolverDinero($id){
+        $ticketsEvento = Tickets::where('evento',$id)
+            ->where('comprador', '!=', 0 )->get();
+        
+        foreach($ticketsEvento as $ticket){
+            $tipo = TiposTicket::find($ticket->tipo);
+            $user = User::find($ticket->comprador);
+            $user->saldo = $user->saldo + $tipo->precio;
+            $user->save();
+        }
     }
 
     private function EliminarTickets($id){

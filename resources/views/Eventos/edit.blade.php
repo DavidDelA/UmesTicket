@@ -25,6 +25,18 @@
      </tr>
     </table>
 
+    
 	 <input type ="submit" value="Actualizar">
+
+     <div>
+    <table>
+     <tr><h1>Tickets Disponibles</h1>
+         @for($i =0; $i< count($ticketsEvento); $i= $i+2)
+         <th> {{$ticketsEvento[$i]->nombre}}</th>
+        <th> <input type="number" name = "{{$ticketsEvento[$i]->id}}" min="0"  value ="{{ $ticketsEvento[$i+1] }}" ></th>
+        </tr>
+        @endfor   
+    </table>
+    </div>
 </form> 
 @endsection
