@@ -18,10 +18,12 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/Eventos','CompraTicketsController@index');
 Route::get('/Eventos/{id}/Detalle','CompraTicketsController@Detalle');
+Route::post('/Eventos/Comprar','CompraTicketsController@Comprar');
 //Paginas solo para Administradores
 Route::group(['middleware'=>'App\Http\Middleware\AdminMiddleware'], function(){
     Route::resource('tiposTicket','TiposTicketController',['except' => 'show,index']);
     Route :: resource ('AdmiEventos','EventosController');
     Route :: resource('admi','AdmiController');
 });
+
 Route::get('/home', 'HomeController@index')->name('home');

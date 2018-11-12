@@ -16,8 +16,9 @@
      <td><label>Lugar: </label></td><td><label>{{$evento->lugar}}</label></td>
      </tr>
      </table>
-<form>
+<form method= "post" action="{{action('CompraTicketsController@Comprar')}}">
 {{ csrf_field() }}
+    <input type="hidden" name="idEvento" value="{{$evento->id}}"/>
      <table>
      <tr><h1>Tickets Disponibles</h1>
          @for($i =0; $i< count($ticketsEvento); $i= $i+2)
