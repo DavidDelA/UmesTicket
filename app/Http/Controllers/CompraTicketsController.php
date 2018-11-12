@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Eventos;
 use App\Tickets;
 use App\TiposTicket;
@@ -37,6 +38,51 @@ class CompraTicketsController extends Controller
         }
         return $ticketsTotales;
     }
+
+    public function Comprar(Request $request){
+        if(self::VerificacionFondos()){
+            self::Debitar();
+            self::AsignacionTickets($request);
+        }
+
+       
+        return (Tickets::where('comprador',1))->get();
+    }
+
+    //Verificación de fondos
+    private function VerificacionFondos(){
+        return (true);
+
+    }
+
+    //Cálculo de transacción
+    private function CalculoTransaccion(){
+
+    }
+
+    //Asignar Tickets a cliente
+    private function AsignacionTickets($request){
+        $id = $request->idEvento;
+        $tickets = $request->except('idEvento','_token');
+        
+        foreach($tickets as $tipo => $cantidad)
+        {
+            $compra = Tickets::where('evento',$id)
+                ->where('tipo',$tipo) 
+                ->where('comprador',0)
+                ->take($cantidad)
+                ->update(['comprador'=> 1 /* Auth::id()*/]);
+            
+        }
+        
+    }
+
+    //debitación a la cuenta del cliente
+    private function Debitar(){
+
+    }
+
+
 
 
 

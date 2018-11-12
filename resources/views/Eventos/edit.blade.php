@@ -23,7 +23,7 @@
      <tr>
      <td><label>Lugar:</label></td><td><input type="text" id="lugar" name="lugar" value ="{{$eventos->lugar}}" ><br></td>
      </tr>
-        </table>
+    </table>
 
 	 <input type ="submit" value="Actualizar">
 </form> 
